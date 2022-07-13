@@ -1,5 +1,5 @@
 // 导入joi模块，定义效验规则
-const { ref } = require('joi')
+const { ref, required } = require('joi')
 const joi = require('joi')
 
 // 用户名校验规则
@@ -36,10 +36,27 @@ const item_describe = joi.string()
 const logo = joi.string()
 // 其他图片验证规则
 const picture = joi.string()
+// 验证码codeID和code
+const codeID = joi.number().min(0).max(1000000).required()
+const code = joi.number().min(0).max(10000000).required()
 // 其他信息验证规则
 const other = joi.string()
+//验证的邮箱
+const aEmail = joi.string().email().required()
 
-
+//导出发送邮箱验证码的表单验证规则对象
+exports.sent_Verification_schema = {
+    body:{
+        aEmail
+    }
+}
+//导出 接收 验证码的表单验证码规则对象
+exports.check_Verification_schema = {
+    body:{
+        codeID,
+        code
+    }
+}
 
 // 导出注册登录的表单验证规则对象
 exports.reg_login_schema = {

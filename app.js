@@ -9,6 +9,8 @@ const userRouter = require('./router/user')
 const userinfoRouter = require('./router/userinfo')
 // 引入成员信息 
 const memberRouter = require('./router/member')
+// 导入验证码模块
+const VerificationRouter = require('./router/Verification')
 // 导入系统信息,不需要token
 const systemRouter = require('./router/systeminfo')
 // 导入系统信息，需要token
@@ -19,6 +21,7 @@ const joi = require('joi')
 const config = require('./config')
 // 导入解析token的中间件
 const exprssJWT = require('express-jwt')
+
 
 // 创建实例
 const app = express()
@@ -63,6 +66,9 @@ app.use(function (err, req, res, next) {
 app.use('/api', userRouter)
 // 系统信息模块
 app.use('/api',systemRouter)
+//通用验证码模块
+app.use('/api',VerificationRouter)
+
 
 // /my开头的接口需要进行token验证
 // 成员信息路由模块
@@ -71,6 +77,7 @@ app.use('/my', memberRouter)
 app.use('/my', userinfoRouter) 
 // 系统信息模块，需要token
 app.use('/my',systemRouterToken)
+
 
 app.listen(3007, function () {
     console.log('api server running at http://127.0.0.1:3007')
