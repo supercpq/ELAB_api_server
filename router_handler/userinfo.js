@@ -24,7 +24,7 @@ exports.getUserInfo = (req, res) => {
 // 修改用户的基本信息
 exports.updateUserInfo = (req, res) => {
     // 修改用户信息的sql语句
-    const sql = `update ev_users set  where id=?`
+    const sql = `update ev_users set ? where id=?`
 
     db.query(sql, [req.body, req.body.id], (err, results) => {
         // sql执行失败
